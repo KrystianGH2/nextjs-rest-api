@@ -5,7 +5,6 @@ import { Types } from "mongoose";
 import User from "@/lib/modals/user";
 import { error } from "console";
 
-
 export const GET = async (request: Request) => {
   try {
     const { searchParams } = new URL(request.url);
@@ -66,7 +65,15 @@ export const POST = async (request: Request) => {
 
     await newNote.save();
     return new NextResponse(
-      JSON.stringify({ message: "Note created successfully" }),
+      JSON.stringify({
+        message: "Note created successfully",
+        note: {
+          _id: newNote._id,
+          title: newNote.title,
+          description: newNote.description,
+          user: newNote.user,
+        },
+      }),
       { status: 201 }
     );
   } catch (error) {
