@@ -1,39 +1,34 @@
 describe("DELETE NOTE", () => {
-    it("creates a new note by user", () => {
-        const title = "Note title" + " " + Math.floor(Math.random() * 900);
-        const description =
-          "Note description" + " " + Math.floor(Math.random() * 900);
-    
+  it("creates a new note by user", () => {
+    const title = "Note title" + " " + Math.floor(Math.random() * 900);
+    const description =
+      "Note description" + " " + Math.floor(Math.random() * 900);
+
+    cy.request({
+      method: "POST",
+      url: "localhost:3000/api/notesById?userId=65c1fccf20317fb5980c345a",
+      body: {
+        title: title,
+        description: description,
+      },
+    }).then((response) => {
+      expect(response.status).to.equal(201);
+      console.log(response.body.note);
+
+      const noteId = response.body.note._id;
+
+      cy.wait(3000);
+
+      if (noteId) {
         cy.request({
-          method: "POST",
-          url: "https://nextjs-rest-api-eight.vercel.app/api/notesById?userId=65c4d3da31a5b42a960e4b6c",
-          body: {
-            title: title,
-            description: description,
-          },
-        }).then((response) => {
-          expect(response.status).to.equal(201);
-          console.log(response.body);
+          method: "DELETE",
+          url: `localhost:3000/api/notesById?userId=65c1fccf20317fb5980c345a&noteId=${noteId}`,
+        }).then((deleteResponse) => {
+          expect(deleteResponse.status).to.equal(200);
+          expect(deleteResponse.body).contains("Note deleted");
+          console.log(deleteResponse.body);
         });
-      });
-    // it("Deletes a user's note", () => {
-    //   const userId = "65c4f2fa6a2ec9387cc08a38";
-    //   const newUsername =
-    //     "RandomUser" + Math.floor(Math.random() * 900) + "- Updated";
-  
-    //   cy.request({
-    //     method: "PATCH",
-    //     url: "https://nextjs-rest-api-eight.vercel.app/api/users",
-    //     body: {
-    //       userId: userId,
-    //       newUserName: newUsername,
-    //     },
-    //   }).then((response) => {
-    //     expect(response.status).to.equal(200);
-    //     expect(response.body.message).contains("Username updated successfully");
-  
-    //     console.log(response.body);
-    //   });
-    // });
+      }
+    });
   });
-  
+});
