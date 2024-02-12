@@ -9,7 +9,7 @@ export const GET = async () => {
   try {
     // make connection to the database
     await connect();
-    const users = await User.find();
+    const users = await User.find({}, { password: 0 }); // excludes the password
     return new NextResponse(JSON.stringify(users), { status: 200 });
   } catch (e) {
     return new NextResponse("Error in fetching users", { status: 500 });
