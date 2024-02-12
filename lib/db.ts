@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 const connect = async () => {
+
+  await mongoose.connect(MONGODB_URI!)
   const connectionState = mongoose.connection.readyState;
 
   if (connectionState === 1) {
