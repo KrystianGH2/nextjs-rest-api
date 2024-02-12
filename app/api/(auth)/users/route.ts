@@ -91,7 +91,13 @@ export const PATCH = async (request: Request) => {
     }
 
     return new NextResponse(
-      JSON.stringify({ message: "Username updated successfully" }),
+      JSON.stringify({
+        message: "Username updated successfully",
+        updatedUser: {
+          _id: updatedUser._id,
+          username: updatedUser.username,
+        },
+      }),
       {
         status: 200,
       }
