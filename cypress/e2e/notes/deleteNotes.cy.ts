@@ -6,29 +6,28 @@ describe("DELETE NOTE", () => {
 
     cy.request({
       method: "POST",
-      url: "https://nextjs-rest-api-eight.vercel.app/notesById?userId=65c4d3da31a5b42a960e4b6c",
+      url: "https://nextjs-rest-api-eight.vercel.app/api/notesById?userId=65c4d3da31a5b42a960e4b6c",
       body: {
         title: title,
         description: description,
       },
     }).then((response) => {
       expect(response.status).to.equal(201);
-      console.log(response.body.note);
+      console.log(response.body.note._id);
 
       const noteId = response.body.note._id;
 
       cy.wait(3000);
-
       if (noteId) {
         cy.request({
           method: "DELETE",
-          url: `https://nextjs-rest-api-eight.vercel.app/notesById?userId=65c4d3da31a5b42a960e4b6c&noteId=${noteId}`,
+          url: `https://nextjs-rest-api-eight.vercel.app/api/notesById?userId=65c4d3da31a5b42a960e4b6c&noteId=${noteId}`,
         }).then((deleteResponse) => {
           expect(deleteResponse.status).to.equal(200);
-          expect(deleteResponse.body).contains("Note deleted");
+          expect(deleteResponse.body).to.contain("Note deleted");
           console.log(deleteResponse.body);
         });
-      }
+      } 
     });
   });
 });
