@@ -6,7 +6,7 @@ describe("DELETE NOTE", () => {
 
     cy.request({
       method: "POST",
-      url: "localhost:3000/api/notesById?userId=65c1fccf20317fb5980c345a",
+      url: "https://nextjs-rest-api-eight.vercel.app/notesById?userId=65c4d3da31a5b42a960e4b6c",
       body: {
         title: title,
         description: description,
@@ -22,7 +22,7 @@ describe("DELETE NOTE", () => {
       if (noteId) {
         cy.request({
           method: "DELETE",
-          url: `localhost:3000/api/notesById?userId=65c1fccf20317fb5980c345a&noteId=${noteId}`,
+          url: `https://nextjs-rest-api-eight.vercel.app/notesById?userId=65c4d3da31a5b42a960e4b6c&noteId=${noteId}`,
         }).then((deleteResponse) => {
           expect(deleteResponse.status).to.equal(200);
           expect(deleteResponse.body).contains("Note deleted");
