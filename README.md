@@ -18,7 +18,13 @@ The primary choices include Next.js as the framework and MongoDB as the NoSQL da
 
 
 ## Endpoints and Queries
+<br>
 
+### Production API endpoints
+``` bash
+https://nextjs-rest-api-eight.vercel.app/api/notes
+https://nextjs-rest-api-eight.vercel.app/api/users
+```
 ### GET, POST, PUT and DELETE
 #### The database is organized into two collections: users and notes. These collections have a relational structure, indicating that a user can create multiple notes.
 
